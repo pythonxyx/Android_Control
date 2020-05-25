@@ -53,5 +53,13 @@ tmplist=[]
 
 # d(text="贵州").click()
 
-for v in d.xpath('android.widget.TextView').all():
-    print(v.text)
+# for v in d.xpath('android.widget.TextView').all():
+#     print(v.text)
+
+# d(resourceId="cn.xuexi.android:id/et_pwd_login").set_text('1986122')
+
+
+# d(scrollable=True).scroll.to(description='//*[@text="全国学习平台"]')
+# d(scrollable=True).scroll.forward.to(description="36,1180")
+
+
