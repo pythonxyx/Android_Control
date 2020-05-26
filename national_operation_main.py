@@ -1,20 +1,9 @@
 import uiautomator2 as u2
 import time
 
-while True:
-    try:
-        d = u2.connect()
-        print('*' * 10 + '欢迎使用本程序' + '*' * 10 + '\n\n')
-        input('请确认模拟器已经打开，需要的应用程序已经安装完毕，回车键继续…')
-        d.app_start('cn.xuexi.android')
-        break
-    except:
-        print('设备未启动或APP未安装，请查看！')
-        time.sleep(5)
-
-def main():
+def main(password='1986122'):
     while True:
-        chosed = input('\n请输入你需要的操作(1-开始执行程序；2-修改登录密码；直接回车键退出程序！)：')
+        chosed = input('\n请输入你需要的操作(1-开始执行程序；直接回车键退出程序！)：')
         if chosed == '1':
             while True:
                 if d(resourceId = 'cn.xuexi.android:id/home_bottom_tab_icon_group').exists:  #如果不需要登录
@@ -46,28 +35,19 @@ def main():
                         time.sleep(2)
                     time.sleep(3)
                     d.press("back")
-                    print('程序执行完毕！！，请自行选择听音乐获取视听分数！！')
+                    input('\n\n程序执行完毕！！，请自行选择听音乐获取视听分数！！\n\n回车键继续…')
+                    break
                 elif d(resourceId="cn.xuexi.android:id/et_pwd_login").exists:
                     print('找到登录界面，正在登录…')
-                    d(resourceId="cn.xuexi.android:id/et_pwd_login").set_text('1986122')
+                    d(resourceId="cn.xuexi.android:id/et_pwd_login").set_text(password)
                     time.sleep(3)
                     d(resourceId="cn.xuexi.android:id/btn_next").click()
                     continue
                 else:
                     print('正在等待APP启动…')
                     time.sleep(2)
-        elif  chosed == 2:
-            password = input('请输入新的密码，回车键保存：')
         else:
             break
-
-
-
-
-
-
-
-
 
 
 # 定义一个函数来获取并阅读推荐栏目的文章
@@ -80,8 +60,8 @@ def Reading_for_recommend():
         while not d.xpath('//*[@resource-id="xxqg-article-header"]/android.view.View[1]').exists:
             print('正在等待文章界面打开…')
             time.sleep(2)
-        print('文章《{}》已经打开，正在阅读中（请等待30秒的设置）…'.format(article_name_list[j]))
-        time.sleep(5)
+        print('文章《{}》已经打开，正在阅读中（请等待1分钟）…'.format(article_name_list[j]))
+        time.sleep(60)
         if j < 2:
             shoucang = '//*[@resource-id="cn.xuexi.android:id/BOTTOM_LAYER_VIEW_ID"]/android.widget.ImageView[1]'
             d.xpath(shoucang).click()
@@ -122,18 +102,24 @@ def Reading_for_guizhou():
         while not d.xpath('//*[@resource-id="xxqg-article-header"]/android.view.View[1]').exists:
             print('正在等待文章界面打开…')
             time.sleep(2)
-        print('文章《{}》已经打开，正在阅读中（请等待30秒的设置）…'.format(article_name_list[j]))
-        time.sleep(30)
+        print('文章《{}》已经打开，正在阅读中（请等待1分钟）…'.format(article_name_list[j]))
+        time.sleep(60)
         d.xpath('//*[@resource-id="cn.xuexi.android:id/TOP_LAYER_VIEW_ID"]/android.widget.ImageView[1]').click()
     print('贵州频道文章阅读结束！')
 
-
-
-
-# Reading_for_recommend()
-
-# Reading_for_guizhou()
-
+while True:
+    try:
+        d = u2.connect()
+        print('*' * 10 + '欢迎使用本程序' + '*' * 10 + '\n\n')
+        input('模拟器已经打开，请确认需要的应用程序已经安装，回车键继续…')
+        password = input('是否需要修改默认密码？（需要请直接输入，直接回车键跳过）：')
+        if password:
+            main.__defaults__ = (password,)
+        d.app_start('cn.xuexi.android')
+        break
+    except:
+        print('设备未启动或APP未安装，请查看！')
+        time.sleep(5)
 main()
 
 

@@ -10,7 +10,13 @@ def printAll():
         if v.text!='':
             print("【{0:0=4}】{1}".format(i,v.text))
 
+def printAllnew():
+    for i,v in enumerate(d.xpath('//android.widget.ListView/android.widget.FrameLayout//android.widget.LinearLayout//*').all()):
+        if v.text!='':
+            print("【{0:0=4}】{1}".format(i,v.text))
 
+
+printAllnew()
 
 # xp = "//*[re:match(@text, '^全部播放')]"
 # d.xpath(xp).click()
@@ -53,7 +59,7 @@ tmplist=[]
 
 # d(text="贵州").click()
 
-# for v in d.xpath('android.widget.TextView').all():
+# for v in d(className='android.widget.TextView').all():
 #     print(v.text)
 
 # d(resourceId="cn.xuexi.android:id/et_pwd_login").set_text('1986122')
@@ -63,3 +69,13 @@ tmplist=[]
 # d(scrollable=True).scroll.forward.to(description="36,1180")
 
 
+# def sample(x=1):
+#     print(x)
+#
+# sample()
+# sample()
+# sample.__defaults__ = (2,)
+# sample()
+# sample()
+
+# d.swipe(0, 1076, 0, 0)
