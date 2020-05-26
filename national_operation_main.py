@@ -128,12 +128,6 @@ def Reading_for_guizhou():
     print('贵州频道文章阅读结束！')
 
 
-
-
-# Reading_for_recommend()
-
-# Reading_for_guizhou()
-
 main()
 
 
