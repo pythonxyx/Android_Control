@@ -80,65 +80,88 @@ tmplist=[]
 
 # d.swipe(0, 1076, 0, 0)
 
-def article_comment(tmplist):
-    while True:
-        print('获取到的推荐文章如下：')
-        for i in range(len(tmplist)):
-            print(i+1,'---',tmplist[i])
-        n=int(input('请选择要评论的文章(0-返回主界面)：'))
-        if n == 0:
-            break
-        elif n>0 and n<=len(tmplist):
-            print('你选择的文章如下：')
-            print('\n文章标题：《{}》'.format(tmplist[n-1]))
-            content = input('请输入你的评论内容(直接回车键返回)：')
-            if content:
-                print('正在评论，请等待…')
-                time.sleep(2)
-                d.xpath('//*[@text="{}"]'.format(tmplist[n-1])).click()
-                while not d.xpath('//*[@resource-id="xxqg-article-header"]/android.view.View[1]').exists:
-                    continue
-                time.sleep(3)
-                d(text="欢迎发表你的观点").click()
-                time.sleep(2)
-                d(className='android.widget.EditText').clear_text()
-                d.set_fastinput_ime(True)
-                d.send_keys(content)
-                d.set_fastinput_ime(False)
-                time.sleep(3)
-                d.xpath('//*[@text="发布"]').click()
-                time.sleep(3)
-                print('评论成功！')
-                d.press("back")
-                continue
-            else:
-                continue
-        else:
-            input('输入的文章范围不对吧？？回车键继续…')
-            continue
-
-def Get_article_name():
-    tmplist = []
-    for name in d.xpath('cn.xuexi.android:id/general_card_title_id').all():
-        tmplist.append(name.text)
-    return tmplist
-
-
-while True:
-    chosed1 = input('是否需要在程序内对文章进行评论？（1-是；回车键跳过）：')
-    if chosed1 == '1':
-        time.sleep(2)
-        d(text="推荐").click()
-        while not d.xpath('//android.widget.ListView/android.widget.FrameLayout[2]'
-                          '/android.widget.LinearLayout[1]'
-                          '/android.widget.LinearLayout[1]'
-                          '/android.widget.TextView[1]').exists:
-            continue
-        time.sleep(3)
-        d.swipe(0, 340, 0, 146)
-        time.sleep(3)
-        article_name_list_for_comment = Get_article_name()
-        article_comment(article_name_list_for_comment)
+# def article_comment(tmplist):
+#     while True:
+#         print('获取到的推荐文章如下：')
+#         for i in range(len(tmplist)):
+#             print(i+1,'---',tmplist[i])
+#         try:
+#             n=int(input('请选择要评论的文章(0-返回主界面)：'))
+#         except:
+#             print('\n\n***提示：请输入数字，要退出请输入0后回车键！！***\n\n')
+#             continue
+#         if n == 0:
+#             break
+#         elif n>0 and n<=len(tmplist):
+#             print('你选择的文章如下：')
+#             print('\n文章标题：《{}》'.format(tmplist[n-1]))
+#             content = input('请输入你的评论内容(直接回车键返回)：')
+#             if content:
+#                 print('正在评论，请等待…')
+#                 time.sleep(2)
+#                 d.xpath('//*[@text="{}"]'.format(tmplist[n-1])).click()
+#                 while not d.xpath('//*[@resource-id="xxqg-article-header"]/android.view.View[1]').exists:
+#                     continue
+#                 time.sleep(3)
+#                 d(text="欢迎发表你的观点").click()
+#                 time.sleep(2)
+#                 d(className='android.widget.EditText').clear_text()
+#                 d.set_fastinput_ime(True)
+#                 d.send_keys(content)
+#                 d.set_fastinput_ime(False)
+#                 time.sleep(3)
+#                 d.xpath('//*[@text="发布"]').click()
+#                 time.sleep(3)
+#                 print('评论成功！')
+#                 d.press("back")
+#                 continue
+#             else:
+#                 continue
+#         else:
+#             input('输入的文章范围不对吧？？回车键继续…')
+#             continue
+#
+# def Get_article_name():
+#     tmplist = []
+#     for name in d.xpath('cn.xuexi.android:id/general_card_title_id').all():
+#         tmplist.append(name.text)
+#     return tmplist
+#
+#
+# while True:
+#     chosed1 = input('是否需要在程序内对文章进行评论？（1-是；回车键跳过）：')
+#     if chosed1 == '1':
+#         time.sleep(2)
+#         d(text="推荐").click()
+#         while not d.xpath('//android.widget.ListView/android.widget.FrameLayout[2]'
+#                           '/android.widget.LinearLayout[1]'
+#                           '/android.widget.LinearLayout[1]'
+#                           '/android.widget.TextView[1]').exists:
+#             continue
+#         time.sleep(3)
+#         d.swipe(0, 340, 0, 146)
+#         time.sleep(3)
+#         article_name_list_for_comment = Get_article_name()
+#         article_comment(article_name_list_for_comment)
+#     else:
+#         break
+# input('\n\n程序执行完毕！！，请自行选择听音乐获取视听分数！！\n\n回车键继续…')
+tmplist1 = []
+for i in d.xpath('//*[@text]').all():
+    tmplist1.append(i.text)
+# print(tmplist1)
+newtmplist1 = []
+for j in range(len(tmplist1)):
+    if tmplist1[j]:
+        newtmplist1.append(tmplist1[j])
     else:
-        break
-input('\n\n程序执行完毕！！，请自行选择听音乐获取视听分数！！\n\n回车键继续…')
+        pass
+# print(newtmplist1)
+if '责任编辑' in newtmplist1[5]:
+    print('纯图片')
+else:
+    print(newtmplist1[5])
+
+# d.swipe(0,955,0,0)
+
+# print(list(d.xpath('//*[@resource-id="xxqg-article-body"]').rect))
