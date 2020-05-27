@@ -40,6 +40,9 @@ def main(password='1986122'):
                         chosed1 = input('是否需要在程序内对文章进行评论？（1-是；回车键跳过）：')
                         if chosed1 == '1':
                             time.sleep(2)
+                            while not  d(text="推荐").exists:
+                                print('未找到推荐按钮，请确认界面存在！！')
+                                time.sleep(3)
                             d(text="推荐").click()
                             while not d.xpath('//android.widget.ListView/android.widget.FrameLayout[2]'
                                               '/android.widget.LinearLayout[1]'
