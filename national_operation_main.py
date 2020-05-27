@@ -142,7 +142,11 @@ def article_comment(tmplist):
         print('获取到的推荐文章如下：')
         for i in range(len(tmplist)):
             print(i+1,'---',tmplist[i])
-        n=int(input('请选择要评论的文章(0-返回主界面)：'))
+        try:
+            n=int(input('请选择要评论的文章(0-返回主界面)：'))
+        except:
+            print('请输入数字，要退出请输入0后回车键！！')
+            continue
         if n == 0:
             break
         elif n>0 and n<=len(tmplist):
