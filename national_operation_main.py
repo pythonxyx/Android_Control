@@ -40,6 +40,9 @@ def main(password='1986122'):
                         chosed1 = input('是否需要在程序内对文章进行评论？（1-是；回车键跳过）：')
                         if chosed1 == '1':
                             time.sleep(2)
+                            while not  d(text="推荐").exists:
+                                print('未找到推荐按钮，请确认界面存在！！')
+                                time.sleep(3)
                             d(text="推荐").click()
                             while not d.xpath('//android.widget.ListView/android.widget.FrameLayout[2]'
                                               '/android.widget.LinearLayout[1]'
@@ -139,19 +142,35 @@ def article_comment(tmplist):
         print('获取到的推荐文章如下：')
         for i in range(len(tmplist)):
             print(i+1,'---',tmplist[i])
-        n=int(input('请选择要评论的文章(0-返回主界面)：'))
+        try:
+            n=int(input('请选择要评论的文章(0-返回主界面)：'))
+        except:
+            print('\n\n***提示：请输入数字，要退出请输入0后,再按回车键！！***\n\n')
+            continue
         if n == 0:
             break
         elif n>0 and n<=len(tmplist):
             print('你选择的文章如下：')
-            print('\n文章标题：《{}》'.format(tmplist[n-1]))
+            print('\n【文章标题】：《{}》'.format(tmplist[n-1]))
+            d.xpath('//*[@text="{}"]'.format(tmplist[n - 1])).click()
+            while not d.xpath('//*[@resource-id="xxqg-article-header"]/android.view.View[1]').exists:
+                continue
+            tmplist1 = []
+            for i in d.xpath('//*[@text]').all():
+                tmplist1.append(i.text)
+            newtmplist1 = []
+            for j in range(len(tmplist1)):
+                if tmplist1[j]:
+                    newtmplist1.append(tmplist1[j])
+                else:
+                    pass
+            if '责任编辑' in newtmplist1[5]:
+                print('\n【文章简要内容】：文章是纯图片，无法获取简要内容！\n')
+            else:
+                print('\n【文章简要内容】：{}\n'.format(tmplist1[5]))
             content = input('请输入你的评论内容(直接回车键返回)：')
             if content:
                 print('正在评论，请等待…')
-                time.sleep(2)
-                d.xpath('//*[@text="{}"]'.format(tmplist[n-1])).click()
-                while not d.xpath('//*[@resource-id="xxqg-article-header"]/android.view.View[1]').exists:
-                    continue
                 time.sleep(3)
                 d(text="欢迎发表你的观点").click()
                 time.sleep(2)
@@ -161,7 +180,7 @@ def article_comment(tmplist):
                 d.set_fastinput_ime(False)
                 time.sleep(3)
                 d.xpath('//*[@text="发布"]').click()
-                time.sleep(3)
+                time.sleep(5)
                 print('评论成功！')
                 d.press("back")
                 continue
