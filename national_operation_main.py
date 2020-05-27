@@ -141,19 +141,22 @@ def article_comment(tmplist):
     while True:
         print('获取到的推荐文章如下：')
         for i in range(len(tmplist)):
-            print(i+1,'---',tmplist[i])
+            print(i + 1, '---', tmplist[i])
         try:
-            n=int(input('请选择要评论的文章(0-返回主界面)：'))
+            n = int(input('请选择要评论的文章(0-返回主界面)：'))
         except:
             print('\n\n***提示：请输入数字，要退出请输入0后,再按回车键！！***\n\n')
             continue
         if n == 0:
             break
-        elif n>0 and n<=len(tmplist):
+        elif n > 0 and n <= len(tmplist):
             print('你选择的文章如下：')
-            print('\n【文章标题】：《{}》'.format(tmplist[n-1]))
+            print('\n【文章标题】：《{}》'.format(tmplist[n - 1]))
             d.xpath('//*[@text="{}"]'.format(tmplist[n - 1])).click()
-            while not d.xpath('//*[@resource-id="xxqg-article-header"]/android.view.View[1]').exists:
+            while not d.xpath('//*[@resource-id="xxqg-article-content"]'
+                              '/android.view.View[1]'
+                              '/android.view.View[1]'
+                              '/android.view.View[2]').exists:
                 continue
             tmplist1 = []
             for i in d.xpath('//*[@text]').all():
@@ -167,7 +170,7 @@ def article_comment(tmplist):
             if '责任编辑' in newtmplist1[5]:
                 print('\n【文章简要内容】：文章是纯图片，无法获取简要内容！\n')
             else:
-                print('\n【文章简要内容】：{}\n'.format(tmplist1[5]))
+                print('\n【文章简要内容】：{}\n'.format(newtmplist1[5]))
             content = input('请输入你的评论内容(直接回车键返回)：')
             if content:
                 print('正在评论，请等待…')
@@ -185,10 +188,14 @@ def article_comment(tmplist):
                 d.press("back")
                 continue
             else:
+                d.xpath('//*[@resource-id="cn.xuexi.android:id'
+                        '/TOP_LAYER_VIEW_ID"]'
+                        '/android.widget.ImageView[1]').click()
                 continue
         else:
             input('输入的文章范围不对吧？？回车键继续…')
             continue
+
 
 
 
