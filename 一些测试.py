@@ -147,21 +147,28 @@ tmplist=[]
 #         break
 # input('\n\n程序执行完毕！！，请自行选择听音乐获取视听分数！！\n\n回车键继续…')
 tmplist1 = []
-for i in d.xpath('//*[@text]').all():
-    tmplist1.append(i.text)
+# for i in d.xpath('//*[@resource-id="xxqg-article-content"]//*').all():
+#     tmplist1.append(i.text)
 # print(tmplist1)
-newtmplist1 = []
-for j in range(len(tmplist1)):
-    if tmplist1[j]:
-        newtmplist1.append(tmplist1[j])
-    else:
-        pass
-# print(newtmplist1)
-if '责任编辑' in newtmplist1[5]:
-    print('纯图片')
-else:
-    print(newtmplist1[5])
+# newtmplist1 = []
+# for j in range(len(tmplist1)):
+#     if tmplist1[j]:
+#         newtmplist1.append(tmplist1[j])
+#     else:
+#         pass
+# # print(newtmplist1)
+# if '责任编辑' in newtmplist1[5]:
+#     print('纯图片')
+# else:
+#     print(newtmplist1[5])
 
-# d.swipe(0,955,0,0)
+# while not d.xpath('//*[@resource-id="xxqg-article-footer"]/android.view.View[1]/android.view.View[2]').exists:
+#     d.swipe(0,300,0,0)
 
 # print(list(d.xpath('//*[@resource-id="xxqg-article-body"]').rect))
+
+for i in d.xpath('//*[@resource-id="xxqg-article-body"]//*').all():
+    if i.text:
+        print('    '+i.text+'\n')
+    else:
+        pass

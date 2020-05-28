@@ -158,19 +158,12 @@ def article_comment(tmplist):
                               '/android.view.View[1]'
                               '/android.view.View[2]').exists:
                 continue
-            tmplist1 = []
-            for i in d.xpath('//*[@text]').all():
-                tmplist1.append(i.text)
-            newtmplist1 = []
-            for j in range(len(tmplist1)):
-                if tmplist1[j]:
-                    newtmplist1.append(tmplist1[j])
+            print('\n【文章内容】：')
+            for i in d.xpath('//*[@resource-id="xxqg-article-body"]//*').all():
+                if i.text:
+                    print('    ' + i.text + '\n')
                 else:
                     pass
-            if '责任编辑' in newtmplist1[5]:
-                print('\n【文章简要内容】：文章是纯图片，无法获取简要内容！\n')
-            else:
-                print('\n【文章简要内容】：{}\n'.format(newtmplist1[5]))
             content = input('请输入你的评论内容(直接回车键返回)：')
             if content:
                 print('正在评论，请等待…')
@@ -215,7 +208,9 @@ while True:
         time.sleep(5)
 main()
 
-
+# d = u2.connect()
+# article_name_list_for_comment = Get_article_name()
+# article_comment(article_name_list_for_comment)
 
 
 
