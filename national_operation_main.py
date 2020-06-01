@@ -8,10 +8,11 @@ def main(password='1986122'):
             while True:
                 if d(resourceId = 'cn.xuexi.android:id/home_bottom_tab_icon_group').exists:  #如果不需要登录
                     print('马上开始阅读【推荐频道的文章】…')
-                    time.sleep(3)
+                    d.swipe(0, 240, 0, 400)  #  模拟刷新界面
+                    time.sleep(5)
                     d.swipe(0, 340, 0, 146)
                     time.sleep(3)
-                    Reading_for_recommend()
+                    Reading_for_recommend()  #  循环阅读获取的推荐频道文章
                     print('正在进入贵州频道…')
                     time.sleep(3)
                     while not d(text="贵州").exists:
@@ -81,8 +82,8 @@ def Reading_for_recommend():
         while not d.xpath('//*[@resource-id="xxqg-article-header"]/android.view.View[1]').exists:
             print('正在等待文章界面打开…')
             time.sleep(2)
-        print('文章《{}》已经打开，正在阅读中（请等待1分钟）…'.format(article_name_list[j]))
-        time.sleep(60)
+        print('文章《{}》已经打开，正在阅读中（请等待2分钟）…'.format(article_name_list[j]))
+        time.sleep(120)
         if j < 2:
             shoucang = '//*[@resource-id="cn.xuexi.android:id/BOTTOM_LAYER_VIEW_ID"]/android.widget.ImageView[1]'
             d.xpath(shoucang).click()
@@ -188,7 +189,6 @@ def article_comment(tmplist):
         else:
             input('输入的文章范围不对吧？？回车键继续…')
             continue
-
 
 
 

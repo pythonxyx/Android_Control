@@ -167,8 +167,16 @@ tmplist1 = []
 
 # print(list(d.xpath('//*[@resource-id="xxqg-article-body"]').rect))
 
-for i in d.xpath('//*[@resource-id="xxqg-article-body"]//*').all():
-    if i.text:
-        print('    '+i.text+'\n')
-    else:
-        pass
+# for i in d.xpath('//*[@resource-id="xxqg-article-body"]//*').all():
+#     if i.text:
+#         print('    '+i.text+'\n')
+#     else:
+#         pass
+
+
+d.swipe(0,240,0,400)
+# d(scrollable=True).scroll.to()
+
+# d(scrollable=True).scroll.toBeginning()
+
+# d(scrollable=True).scroll.forward()
